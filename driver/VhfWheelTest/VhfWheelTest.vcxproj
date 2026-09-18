@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D9DEACD9-D3B1-49D1-9A60-0BB628F6F50C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>VhfWheelTest</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.28000.0</WindowsTargetPlatformVersion>
+    <TargetPlatformVersion>10.0.28000.0</TargetPlatformVersion>
+    <MinimumVisualStudioVersion>18.0</MinimumVisualStudioVersion>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <NuGetPackageRoot Condition="'$(NuGetPackageRoot)'==''">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
+    <WDKBuildFolder>10.0.28000.0</WDKBuildFolder>
+  </PropertyGroup>
+  <Import Project="$(NuGetPackageRoot)microsoft.windows.sdk.cpp\10.0.28000.2526\build\native\Microsoft.Windows.SDK.cpp.props"
+          Condition="Exists('$(NuGetPackageRoot)microsoft.windows.sdk.cpp\10.0.28000.2526\build\native\Microsoft.Windows.SDK.cpp.props')" />
+  <Import Project="$(NuGetPackageRoot)microsoft.windows.sdk.cpp.x64\10.0.28000.2526\build\native\Microsoft.Windows.SDK.cpp.x64.props"
+          Condition="Exists('$(NuGetPackageRoot)microsoft.windows.sdk.cpp.x64\10.0.28000.2526\build\native\Microsoft.Windows.SDK.cpp.x64.props')" />
+  <Import Project="$(NuGetPackageRoot)microsoft.windows.wdk.x64\10.0.28000.2526\build\native\Microsoft.Windows.WDK.x64.props"
+          Condition="Exists('$(NuGetPackageRoot)microsoft.windows.wdk.x64\10.0.28000.2526\build\native\Microsoft.Windows.WDK.x64.props')" />
+  <PropertyGroup>
+    <WDKContentRoot>$([MSBuild]::EnsureTrailingSlash('$(WDKContentRoot)'))</WDKContentRoot>
+    <WindowsSdkDir>$([MSBuild]::EnsureTrailingSlash('$(WindowsSdkDir)'))</WindowsSdkDir>
+    <WindowsSdkDir_10>$(WindowsSdkDir)</WindowsSdkDir_10>
+    <WDKBinRoot>$(WDKContentRoot)bin\10.0.28000.0</WDKBinRoot>
+    <WindowsSDKVersionedBinRoot>$(NuGetPackageRoot)microsoft.windows.sdk.cpp\10.0.28000.2526\c\bin\10.0.28000.0</WindowsSDKVersionedBinRoot>
+    <InfToolPath>$(WDKBinRoot)\x64\</InfToolPath>
+    <DrvCatToolPath>$(WDKBinRoot)\x64\</DrvCatToolPath>
+    <SkipPackageVerification>true</SkipPackageVerification>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>KMDF</DriverType>
+    <PlatformToolset>v145</PlatformToolset>
+    <IsKernelModeToolset>true</IsKernelModeToolset>
+    <DriverTargetPlatform>Desktop</DriverTargetPlatform>
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>KMDF</DriverType>
+    <PlatformToolset>v145</PlatformToolset>
+    <IsKernelModeToolset>true</IsKernelModeToolset>
+    <DriverTargetPlatform>Desktop</DriverTargetPlatform>
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(WDKContentRoot)build\$(WDKBuildFolder)\WindowsDriver.Default.props" />
+  <Import Project="$(WDKContentRoot)build\$(WDKBuildFolder)\x64\WindowsKernelModeDriver\WDK.x64.WindowsKernelModeDriver.props" />
+  <Import Project="$(WDKContentRoot)build\$(WDKBuildFolder)\x64\ImportAfter\WDK.x64.WindowsKernelModeDriver.Platform.props" />
+  <PropertyGroup>
+    <TargetName>VhfWheelTest</TargetName>
+    <EnableInf2Cat>true</EnableInf2Cat>
+    <SignMode>Off</SignMode>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalOptions>/kernel %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(WDKContentRoot)Include\$(TargetPlatformVersion)\km;$(WDKContentRoot)Include\$(TargetPlatformVersion)\shared;$(WDKContentRoot)Include\wdf\kmdf\1.15;$(NuGetPackageRoot)microsoft.windows.sdk.cpp\10.0.28000.2526\c\Include\$(TargetPlatformVersion)\ucrt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(WDKContentRoot)Lib\$(TargetPlatformVersion)\km\x64;$(WDKContentRoot)Lib\wdf\kmdf\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>vhfkm.lib;1.15\WdfDriverEntry.lib;ntoskrnl.lib;hal.lib;wmilib.lib;BufferOverflowFastFailK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Driver.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="VhfWheelTestProtocol.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Inf Include="VhfWheelTest.inf" />
+  </ItemGroup>
+  <ItemGroup>
+    <FilesToPackage Include="$(TargetPath)" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.WDK.x64" Version="10.0.28000.2526" ExcludeAssets="build" />
+    <PackageReference Include="Microsoft.Windows.SDK.CPP.x64" Version="10.0.28000.2526" ExcludeAssets="build" />
+    <PackageReference Include="Microsoft.Windows.SDK.CPP" Version="10.0.28000.2526" ExcludeAssets="build" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Import Project="$(WDKContentRoot)build\$(WDKBuildFolder)\WindowsDriver.Common.targets" />
+  <Import Project="$(NuGetPackageRoot)microsoft.windows.sdk.cpp\10.0.28000.2526\build\native\Microsoft.Windows.SDK.cpp.targets" />
+</Project>

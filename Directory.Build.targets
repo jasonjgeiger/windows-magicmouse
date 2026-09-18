@@ -1,0 +1,12 @@
+<Project>
+  <Target Name="RejectCheckedInSigningSecrets" BeforeTargets="PrepareForBuild">
+    <ItemGroup>
+      <SigningSecret Include="$(MSBuildProjectDirectory)\**\*.pfx" />
+      <SigningSecret Include="$(MSBuildProjectDirectory)\**\*.pvk" />
+      <SigningSecret Include="$(MSBuildProjectDirectory)\**\*.key" />
+    </ItemGroup>
+    <Error
+      Condition="'@(SigningSecret)' != ''"
+      Text="Signing secrets must not be stored in the repository. Found: @(SigningSecret)" />
+  </Target>
+</Project>

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\MagicMouseWindows.Shared.csproj" />
+    <ProjectReference Include="..\GestureCore\MagicMouseWindows.GestureCore.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <AssemblyName>MagicMouseService</AssemblyName>
+    <RootNamespace>MagicMouseWindows.Service</RootNamespace>
+  </PropertyGroup>
+
+</Project>

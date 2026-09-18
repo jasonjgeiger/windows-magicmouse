@@ -1,0 +1,57 @@
+[Version]
+Signature="$WINDOWS NT$"
+Class=System
+ClassGuid={4D36E97D-E325-11CE-BFC1-08002BE10318}
+Provider=%ManufacturerName%
+DriverVer=09/18/2026,1.0.0.0
+CatalogFile=VhfWheelTest.cat
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir=13
+
+[SourceDisksNames]
+1=%DiskName%,,,
+
+[SourceDisksFiles]
+VhfWheelTest.sys=1
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64.10.0...16299
+
+[Standard.NTamd64.10.0...16299]
+%DeviceName%=VhfWheelTest_Install,Root\VhfWheelTest
+
+[VhfWheelTest_Install.NT]
+CopyFiles=DriverCopyFiles
+
+[VhfWheelTest_Install.NT.HW]
+AddReg=VhfWheelTest_Filter_AddReg
+
+[VhfWheelTest_Filter_AddReg]
+HKR,,"LowerFilters",0x00010000,"vhf"
+
+[DriverCopyFiles]
+VhfWheelTest.sys
+
+[VhfWheelTest_Install.NT.Services]
+AddService=VhfWheelTest,0x00000002,VhfWheelTest_Service
+
+[VhfWheelTest_Service]
+DisplayName=%ServiceName%
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%13%\VhfWheelTest.sys
+
+[VhfWheelTest_Install.NT.Wdf]
+KmdfService=VhfWheelTest,VhfWheelTest_Wdf
+
+[VhfWheelTest_Wdf]
+KmdfLibraryVersion=1.15
+
+[Strings]
+ManufacturerName="MagicMouseWindows Test"
+DeviceName="Synthetic VHF Wheel Test Device"
+ServiceName="Synthetic VHF Wheel Test Driver"
+DiskName="VHF Wheel Test Installation Disk"

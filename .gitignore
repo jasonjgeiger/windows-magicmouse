@@ -1,0 +1,66 @@
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+[Aa]rtifacts/
+[Tt]est[Rr]esults/
+*.user
+*.suo
+*.cache
+*.obj
+*.ilk
+*.tlog
+*.recipe
+*.lastbuildstate
+*.exp
+*.lib
+
+# Visual Studio and VS Code
+.vs/
+.vscode/
+*.VC.db
+*.VC.opendb
+ipch/
+
+# Driver and packaging outputs
+*.cat
+*.inf_loc
+*.pdb
+*.sys
+*.appx
+*.appxbundle
+*.msix
+*.msixbundle
+*.msi
+*.cab
+
+# Signing material and secrets
+*.cer
+*.crt
+*.pfx
+*.p12
+*.pvk
+*.snk
+*.key
+*.pem
+secrets/
+
+# Raw diagnostics and captures
+captures/
+diagnostics/
+*.etl
+*.dmp
+*.hdmp
+
+# Local tooling
+.idea/
+*.log
+*.tmp
+*.bak
+
+# Operating system files
+Thumbs.db
+Desktop.ini
+.DS_Store

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Hid\MagicMouseWindows.Hid.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <AssemblyName>HidInspector</AssemblyName>
+    <RootNamespace>MagicMouseWindows.Tools.HidInspector</RootNamespace>
+  </PropertyGroup>
+
+</Project>

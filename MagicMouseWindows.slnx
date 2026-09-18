@@ -1,0 +1,32 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/GestureCore/">
+    <Project Path="src/GestureCore/MagicMouseWindows.GestureCore.csproj" />
+  </Folder>
+  <Folder Name="/src/Hid/">
+    <Project Path="src/Hid/MagicMouseWindows.Hid.csproj" />
+  </Folder>
+  <Folder Name="/src/Service/">
+    <Project Path="src/Service/MagicMouseWindows.Service.csproj" />
+  </Folder>
+  <Folder Name="/src/SettingsApp/">
+    <Project Path="src/SettingsApp/MagicMouseWindows.SettingsApp.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/MagicMouseWindows.Shared.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/Hid.Tests/">
+    <Project Path="tests/Hid.Tests/MagicMouseWindows.Hid.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/ProtocolFixtures/">
+    <Project Path="tests/ProtocolFixtures/MagicMouseWindows.ProtocolFixtures.csproj" />
+  </Folder>
+  <Folder Name="/tools/" />
+  <Folder Name="/tools/HidInspector/">
+    <Project Path="tools/HidInspector/MagicMouseWindows.HidInspector.csproj" />
+  </Folder>
+  <Folder Name="/tools/ReportRecorder/">
+    <Project Path="tools/ReportRecorder/MagicMouseWindows.ReportRecorder.csproj" />
+  </Folder>
+</Solution>
