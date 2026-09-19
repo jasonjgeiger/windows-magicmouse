@@ -26,11 +26,15 @@
 | R-015 | UI cannot satisfy High Contrast, scaling, or localization late in development | Medium | Medium | Use system controls/resources and test representative layouts each milestone | Reduce custom UI and correct resource/layout architecture before release | UI |
 | R-016 | Scope expands into advanced gestures before scrolling is stable | High | Medium | Explicit v1 exclusions and gated roadmap | Defer request to post-v1 backlog unless it fixes a release blocker | Product |
 | R-017 | Test fixtures are insufficient or non-reproducible | Medium | High | Canonical schema, scenario metadata, two-machine replay, provenance | Repeat captures; do not promote profile status | Protocol/Test |
+| R-019 | Existing software (Boot Camp wireless mouse driver, Magic Utilities) already meets the goal, making the project unnecessary | High | Medium | Evaluate prior art before further investment and record the result | Stop or narrow the project to the unmet gap | Product |
+| R-020 | The kernel component is unnecessary because touch data is in a separate readable vendor collection | Medium | High | Run the descriptor gate before driver work | Reopen ADR-0001 and adopt a service-only design | Protocol/Driver |
+| R-021 | Test signing requires disabling Secure Boot on the development machine | High | Medium | Use a dedicated test machine or VM; never enable test signing from repository scripts | Evaluate a UMDF or user-mode design, or accept a separate test machine | Driver/Release |
+| R-022 | Planning output outpaces hardware evidence and encodes wrong assumptions, such as the transport | High | Medium | Freeze documentation expansion until captures exist; label unverified assumptions explicitly | Correct affected documents from capture evidence before resuming planning | Project |
 | R-018 | Installer failure leaves the mouse or driver stack degraded | Medium | Critical | Transactional install design, restore points where appropriate, recovery media/instructions, repeated rollback tests | Halt distribution and provide targeted recovery procedure | Installer |
 
 ## Top feasibility risks
 
-The first feasibility work after the M1 foundation should retire R-001, R-002, R-013, and R-017. These determine whether the selected architecture and initial hardware target are feasible before significant driver, service, or UI investment.
+The first feasibility work should retire R-019 and R-020 before anything else, then R-001, R-002, R-013, and R-017. These determine whether the selected architecture and initial hardware target are feasible before significant driver, service, or UI investment.
 
 ## Review cadence
 

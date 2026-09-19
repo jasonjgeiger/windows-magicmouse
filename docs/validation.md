@@ -114,7 +114,7 @@ Initial minimum:
 
 - Two Windows 11 x64 machines.
 - At least two Bluetooth adapter implementations.
-- Initial Lightning Magic Mouse 2 hardware.
+- Initial Magic Mouse 2 hardware, the model with a Lightning charging port, connected over Bluetooth.
 - Current supported Windows 11 release and one supported prior release when practical.
 
 Other mouse models remain unclaimed until they independently satisfy the matrix.

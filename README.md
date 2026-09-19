@@ -8,16 +8,35 @@ This repository is in the foundation and protocol-research phase.
 
 - No Magic Mouse model is currently supported.
 - No production-ready driver or installer exists.
+- Planning documentation is currently far ahead of hardware evidence. Documentation expansion is paused until the first descriptor dump and captures exist.
 - Do not bind experimental driver code to hardware until the protocol and rollback gates pass.
-- Developer builds will use test signing; production signing is a separate release requirement.
+- Developer builds will use test signing, which requires disabling Secure Boot on the test machine. Use a spare machine or VM, not a daily driver. Production signing is a separate release requirement.
 
 ## Initial scope
 
 - Windows 11 x64.
-- Magic Mouse 2 with Lightning as the first research target.
+- Magic Mouse 2 (Lightning charging port) as the first research target, connected over Bluetooth HID. The Lightning port is assumed to be charge and pair only; touch data is assumed to arrive over Bluetooth HID. Both assumptions are unverified.
 - Direct one-finger vertical and horizontal scrolling.
 - Independent enablement, speed, and direction settings for each axis.
 - Deterministic behavior without inertia or advanced gestures.
+
+## Next step: the descriptor gate
+
+No further architecture, driver, or service work is approved until a descriptor dump from real hardware answers one question: is the touch data exposed in a separate vendor-defined top-level collection, or is it inside the collection the Windows mouse stack owns?
+
+- Separate readable collection: a user-mode, service-only design may be sufficient and no kernel driver is required.
+- Same collection as pointer/buttons: a kernel or UMDF filter is required, because Raw Input returns parsed `RIM_TYPEMOUSE` data and never exposes the touch bytes.
+
+Run `.\tools\Test-MagicMouse.ps1` and record the result before committing to the architecture in [ADR-0001](docs/decisions/0001-filter-service-vhf.md).
+
+## Prior art
+
+Existing software already provides Magic Mouse scrolling on Windows. Evaluate it before investing in this project:
+
+- Apple Boot Camp support software, which ships an Apple wireless mouse driver.
+- Magic Utilities, a paid third-party utility.
+
+This repository is a clean-room interoperability project. Prior art may be used as a functional benchmark and as a reason not to build, but it must not be decompiled, copied, or redistributed.
 
 ## Documentation
 

@@ -1,5 +1,7 @@
 # Architecture
 
+The component layout below describes the provisional architecture in ADR-0001. It is not settled until the descriptor gate in [plan.md](plan.md) records a result.
+
 ## System context
 
 ```text
@@ -204,4 +206,6 @@ installer\
 
 The preferred design is a narrowly scoped HID filter plus user-mode service plus VHF output, rather than a `SendInput`-only implementation. This preserves a standards-based input path for normal and elevated applications, isolates gesture complexity in user mode, and allows base HID reports to continue independently.
 
-This decision is recorded in [ADR-0001](decisions/0001-filter-service-vhf.md). Production driver behavior remains gated on its rollback, pass-through, protocol, and VHF feasibility evidence.
+This decision is recorded in [ADR-0001](decisions/0001-filter-service-vhf.md) and is provisional. It assumes touch data is unreachable from user mode because it shares the collection the Windows mouse stack owns. The descriptor gate in [plan.md](plan.md) settles that assumption. If touch data is in a separate readable vendor-defined top-level collection, the filter is removed and a service-only design applies. If a filter is required, evaluate a UMDF filter hosted by `mshidumdf` before committing to KMDF.
+
+Production driver behavior remains gated on rollback, pass-through, protocol, and VHF feasibility evidence.

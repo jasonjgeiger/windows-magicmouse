@@ -18,8 +18,45 @@ This is the first bounded set of work to act on. Work outside this set remains p
 | 3 | P1-04 | ADR-0001 with alternatives, failure behavior, rollback, and reconsideration evidence | Complete |
 | 4 | P1-02 | Buildable user-mode solution boundaries without hardware binding | Complete |
 | 5 | P2-01 | Versioned capture/profile contracts with bounds, provenance, and invalid-schema tests | Complete |
+| 6 | P0-01 | Recorded prior-art evaluation and a decision to continue or stop | Planned |
+| 7 | P0-02 | Recorded descriptor dump and architecture selection (gate) | Planned |
 
-This execution set reached its P2-01 review point. The next bounded set may include only the minimum HidInspector, ReportRecorder, and synthetic VHF work needed to retire feasibility risks. Driver binding, gesture implementation, settings UI, and installer work remain outside the active set.
+This execution set reached its P2-01 review point. P0-01 and P0-02 are now the only approved next work. All further planning documentation, driver binding, gesture implementation, settings UI, and installer work remain outside the active set until the descriptor gate produces a recorded result.
+
+## Phase 0 - Feasibility
+
+### P0-01 Evaluate prior art
+
+**Depends on:** none
+
+**Deliverables:**
+
+- Test Apple Boot Camp support software, including its Apple wireless mouse driver, on the target machine.
+- Test Magic Utilities on the target machine.
+- Record what each provides, what it lacks, and any unacceptable dependency or cost.
+
+**Done when:**
+
+- The evaluation result is recorded with a decision to continue, narrow, or stop the project.
+- No proprietary binary has been decompiled, copied, or redistributed.
+
+### P0-02 Run the descriptor gate
+
+**Depends on:** P2-02
+
+**Deliverables:**
+
+- A descriptor dump from the target Magic Mouse using `tools\Test-MagicMouse.ps1` or HidInspector.
+- For each top-level collection: usage page, usage, input report IDs and lengths, and read accessibility.
+- Confirmation or correction of the assumption that touch data arrives over Bluetooth HID and that the Lightning port is charge and pair only.
+- An architecture selection recorded in ADR-0001: service-only, UMDF filter, or KMDF filter with service and VHF.
+
+**Done when:**
+
+- The descriptor gate table in `plan.md` has a recorded outcome.
+- ADR-0001 status reflects the selected architecture.
+
+**Gate:** Phase 4 driver work and the P2-07 VHF spike remain blocked until this task completes.
 
 ## Phase 1 - Repository and documentation baseline
 
@@ -186,6 +223,8 @@ This execution set reached its P2-01 review point. The next bounded set may incl
 
 ### P2-07 Prove synthetic VHF output
 
+**Blocked by:** P0-02. Skip this task entirely if the selected architecture does not use VHF.
+
 **Depends on:** P1-02, P1-04
 
 **Deliverables:**
@@ -263,6 +302,8 @@ This execution set reached its P2-01 review point. The next bounded set may incl
 ## Phase 4 - Driver and virtual HID
 
 ### P4-01 Create non-binding KMDF skeleton
+
+**Blocked by:** P0-02. Do not start if the descriptor gate selects a service-only architecture. Evaluate a UMDF filter hosted by `mshidumdf` before writing KMDF code if a filter is required.
 
 **Depends on:** P1-02, P1-04
 

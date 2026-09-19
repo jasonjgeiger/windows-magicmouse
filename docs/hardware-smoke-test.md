@@ -53,5 +53,9 @@ A useful initial result identifies:
 - Which collection is readable.
 - VID, PID, usage page, usage, and input report length.
 - Repeating raw reports while using the mouse.
+- Whether touch data appears in a separate vendor-defined top-level collection or only in the collection Windows owns for the mouse.
+- The transport in use, to confirm or correct the assumption that touch data arrives over Bluetooth HID rather than over the Lightning cable.
+
+The last two items decide the architecture. Record them against the descriptor gate in [plan.md](plan.md) before any filter or service work begins.
 
 Read-only capture may expose only standard mouse reports. Some Magic Mouse variants may require an initialization or feature-report sequence before touch frames appear; no such sequence will be sent until it is independently understood and bounded. The first device profile and touch decoder remain blocked until usable evidence is available and repeatable.

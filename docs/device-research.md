@@ -4,6 +4,18 @@
 
 Establish a clean-room, repeatable, evidence-based device profile for the initial Magic Mouse model before implementing production filter behavior.
 
+## First evidence: the descriptor gate
+
+Before any scenario captures, record a descriptor dump for the target device and answer one question: is touch data exposed in a separate vendor-defined top-level collection, or is it inside the collection the Windows mouse stack owns?
+
+Record for each top-level collection: usage page, usage, input report IDs and lengths, and whether the collection can be opened for read.
+
+- Separate readable vendor collection: a user-mode, service-only design may be sufficient. Reopen [ADR-0001](decisions/0001-filter-service-vhf.md).
+- Shared with the mouse collection: a filter is required, because Raw Input returns parsed `RIM_TYPEMOUSE` data and never exposes touch bytes.
+- No touch data visible: determine whether an initialization or feature-report sequence is required before choosing an architecture.
+
+Also record the transport used. Magic Mouse 2 is assumed to deliver touch data over Bluetooth HID, with the Lightning port serving charging and pairing only. Confirm or correct that here.
+
 ## Evidence standard
 
 A field is **confirmed** only when:

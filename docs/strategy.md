@@ -12,10 +12,16 @@ The product should behave as an enhancement, not as a replacement mouse stack. I
 - Developers and technical users willing to test early hardware support.
 - Later, general users who require signed installation, predictable upgrades, accessibility, and low-maintenance reconnect behavior.
 
+## Prior art and build-versus-adopt
+
+Magic Mouse scrolling on Windows already exists in Apple's Boot Camp support software, which ships an Apple wireless mouse driver, and in the paid Magic Utilities package. Evaluate both before continuing. If they satisfy the need, the correct outcome is to stop building.
+
+A decision to continue should be recorded with a reason, such as an unacceptable dependency, a behavior gap, or an explicit interest in building the capability. Prior art is a functional benchmark only. It must never be decompiled, copied, or redistributed.
+
 ## Initial target
 
 - Operating system: Windows 11 x64.
-- Hardware: Magic Mouse 2 with Lightning.
+- Hardware: Magic Mouse 2, the model with a Lightning charging port, connected over Bluetooth HID. The Lightning port is assumed to be charge and pair only, so touch data is expected over Bluetooth rather than over the cable. This is unverified and must be checked during the descriptor gate.
 - Input features: direct one-finger vertical and horizontal scrolling.
 - Configuration: independent axis enablement, speed, and direction.
 - Distribution stage: developer test-signed builds before any production release.
@@ -32,9 +38,17 @@ The filter forwards existing reports and control traffic unchanged. Enhanced scr
 
 Kernel code performs narrow validation, bounded transport, lifecycle handling, and virtual HID submission. Parsing policy, gesture recognition, settings, floating-point calculations, persistence, diagnostics, and UI remain in user mode.
 
+### Settle feasibility before design
+
+The architecture assumes a kernel component is required because the Windows mouse stack owns the pointer collection and Raw Input returns only parsed `RIM_TYPEMOUSE` data. If a descriptor dump shows touch data in a separate readable vendor-defined top-level collection, a simpler user-mode design applies and the driver is unnecessary. Settle that with hardware before elaborating design.
+
 ### Require evidence before support claims
 
 Hardware IDs alone are insufficient. A supported device profile requires a matching descriptor signature, documented report shape, lifecycle captures, fixture tests, and hardware acceptance results.
+
+### Keep planning proportional to evidence
+
+Planning artifacts should not outpace captures. When the two diverge, gather hardware evidence and correct existing documents instead of producing new ones.
 
 ### Build deterministic behavior first
 

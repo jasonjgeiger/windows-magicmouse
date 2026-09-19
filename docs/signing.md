@@ -14,6 +14,14 @@ Before any test-signed driver binds to hardware:
 
 Enabling Windows test-signing mode changes an operating-system security setting and must be an explicit developer action. Repository scripts must not silently enable it.
 
+## Secure Boot cost
+
+Test signing requires Secure Boot to be disabled, which weakens the security posture of the machine for as long as development continues. This is a real cost on a daily-driver machine.
+
+- Prefer a dedicated test machine or a virtual machine with Bluetooth pass-through.
+- If no such machine is available, treat that as a reason to evaluate a UMDF or user-mode design before committing to a kernel-mode driver.
+- Record when Secure Boot was disabled and re-enable it when driver testing ends.
+
 ## Production signing
 
 Production signing is a separate M7 deliverable. It requires the selected Microsoft-supported signing path, package provenance, release verification, Secure Boot and HVCI evidence, and all applicable release gates.
