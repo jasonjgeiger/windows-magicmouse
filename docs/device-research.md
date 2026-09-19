@@ -24,6 +24,7 @@ Record for each session:
 - Transport and descriptor hashes.
 - Firmware observations available through documented interfaces.
 - Windows edition, build, architecture, and Bluetooth adapter.
+- Device stack, Driver Key, and bound INF before and, when an optional comparison is used, after installing an Apple mouse-driver package.
 - Tool version and fixture schema version.
 - Test scenario and operator annotation.
 
@@ -58,6 +59,9 @@ Do not record user identity, unrelated keyboard input, unrelated device traffic,
 8. Add annotations separately from observed bytes.
 9. Replay the fixture through the parser.
 10. Compare results across repeated sessions and machines.
+11. When a lawful, locally installed Apple 6.1.x mouse-driver package is available, repeat steps 1 through 10 and compare only the externally observable descriptor, collection, report, and stack differences.
+
+An Apple-driver comparison is optional feasibility research, not a runtime dependency or support criterion. Obtain packages only from Apple-controlled sources or tools that retrieve them from Apple's servers, retain them locally, and do not commit, redistribute, copy, or decompile their contents. Document package provenance and version, but treat undocumented driver behavior as an observation to reproduce independently rather than an implementation specification.
 
 ## Device profile contents
 
@@ -109,5 +113,6 @@ Production driver work remains blocked until:
 - Contact start, continuation, and lift are distinguishable.
 - Report lengths and identities are bounded and documented.
 - Reconnect and resume initialization behavior is understood.
+- Any descriptor, report, or stack differences observed with an optional Apple-driver comparison are independently captured and reproduced without depending on Apple binaries.
 - Golden fixtures pass on at least two machines.
 - Unknown or malformed layouts fail explicitly.

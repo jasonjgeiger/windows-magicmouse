@@ -27,6 +27,7 @@
 | R-016 | Scope expands into advanced gestures before scrolling is stable | High | Medium | Explicit v1 exclusions and gated roadmap | Defer request to post-v1 backlog unless it fixes a release blocker | Product |
 | R-017 | Test fixtures are insufficient or non-reproducible | Medium | High | Canonical schema, scenario metadata, two-machine replay, provenance | Repeat captures; do not promote profile status | Protocol/Test |
 | R-018 | Installer failure leaves the mouse or driver stack degraded | Medium | Critical | Transactional install design, restore points where appropriate, recovery media/instructions, repeated rollback tests | Halt distribution and provide targeted recovery procedure | Installer |
+| R-019 | Comparison-driver packages are untrusted, incompatible, or contaminate clean-room work | Medium | High | Use only official Apple sources or direct Apple-server retrieval, record package provenance, isolate comparison observations, and never commit or redistribute binaries | Stop comparison work, restore the original stack, and discard non-reproducible observations | Protocol/Project |
 
 ## Top feasibility risks
 

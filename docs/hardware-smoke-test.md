@@ -55,3 +55,15 @@ A useful initial result identifies:
 - Repeating raw reports while using the mouse.
 
 Read-only capture may expose only standard mouse reports. Some Magic Mouse variants may require an initialization or feature-report sequence before touch frames appear; no such sequence will be sent until it is independently understood and bounded. The first device profile and touch decoder remain blocked until usable evidence is available and repeatable.
+
+## Optional Apple-driver comparison
+
+Apple's existing Magic Mouse driver can provide a useful comparison baseline, but it is not a project dependency, is not evidence that a model is supported, and must never be committed or redistributed with this MIT repository.
+
+1. Before changing the system, create a Windows restore point and record the current device stack and installed driver packages. This also exercises the project's future rollback path.
+2. Prefer an official Boot Camp Windows Support Software package in the 6.1.x line. On an Intel Mac, use **Boot Camp Assistant > Action > Download Windows Support Software**, following [Apple's guide](https://support.apple.com/en-ie/102465), and locate `BootCamp\Drivers\AppleWirelessMouse` on the resulting USB drive.
+3. Without a Mac, `brigadier` from [timsutton/brigadier](https://github.com/timsutton/brigadier) may retrieve Boot Camp packages from Apple's servers on Windows. Its compatibility with current Apple catalogs has not been verified by this project. Unpack the resulting download locally with 7-Zip; do not use random package mirrors, especially for kernel-mode software.
+4. Do not run the package-wide `Setup.exe`, which commonly refuses non-Apple hardware. Install only the mouse-driver package from `AppleWirelessMouse`, following its supplied installation instructions.
+5. The 2009 Apple Bluetooth Update targets the original Magic Mouse; it is not a Magic Mouse 2 source. Magic Mouse 2 support arrived in Windows 10-era 6.x Boot Camp packages.
+
+After the comparison package is installed, repeat the inspection and bounded capture procedures above. Compare descriptors, readable collections, and the device stack with the unmodified Windows state. Record the device's **Driver Key** from **Device Manager > Details** to identify the filter chain, and use `pnputil /enum-drivers` to identify the Apple INF that bound to the device. Preserve only externally observed metadata and captures that satisfy the privacy and provenance rules; do not copy, decompile, or redistribute Apple binaries or driver contents.

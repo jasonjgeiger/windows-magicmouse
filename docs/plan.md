@@ -15,7 +15,7 @@ The project is greenfield. No hardware support is considered confirmed until des
 | [architecture.md](architecture.md) | Component boundaries, data flow, trust boundaries, and lifecycle behavior |
 | [device-research.md](device-research.md) | Clean-room protocol research method and evidence requirements |
 | [protocol-contracts.md](protocol-contracts.md) | Versioned capture/profile contracts, bounds, and compatibility policy |
-| [hardware-smoke-test.md](hardware-smoke-test.md) | Safe inspection and bounded raw-report capture procedure |
+| [hardware-smoke-test.md](hardware-smoke-test.md) | Safe inspection, bounded raw-report capture, and optional Apple-driver comparison procedure |
 | [tasks.md](tasks.md) | Ordered work packages, dependencies, deliverables, and completion criteria |
 | [validation.md](validation.md) | Test levels, matrices, acceptance scenarios, and release gates |
 | [risks.md](risks.md) | Risk register, mitigations, triggers, and contingency decisions |
@@ -37,6 +37,7 @@ The project is greenfield. No hardware support is considered confirmed until des
 - No Magic Mouse model is currently declared supported.
 - The first approved engineering scope is repository scaffolding, the architecture ADR, and protocol-research contracts.
 - Production driver development is gated on repeatable hardware evidence.
+- Optional comparison against a locally installed, official Apple Boot Camp 6.1.x mouse driver may inform protocol research, but Apple binaries are neither a project dependency nor repository content.
 
 ## Documentation assessment
 
@@ -69,4 +70,4 @@ Version 1 is intended to provide:
 
 ## Governing constraint
 
-Implementation must be clean-room. It must not copy, redistribute, decompile, or depend on proprietary Magic Utilities or Apple binaries. Interoperability research must be based on original, bounded hardware observations and documented provenance. Public specifications, Microsoft documentation and samples, and license-compatible source material are acceptable inputs.
+Implementation must be clean-room. It must not copy, redistribute, decompile, or depend on proprietary Magic Utilities or Apple binaries. A locally installed Apple driver may be used only as an optional comparison baseline: record externally observable descriptor, report, and device-stack behavior, then independently reproduce the evidence. Interoperability research must be based on original, bounded hardware observations and documented provenance. Public specifications, Microsoft documentation and samples, and license-compatible source material are acceptable inputs.

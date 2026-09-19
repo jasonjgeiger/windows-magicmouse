@@ -17,10 +17,14 @@ No driver package exists and no repository artifact should currently bind to Mag
 
 Before the first hardware-binding test:
 
-1. Record the original device stack and driver package state.
+1. Create a Windows restore point, then record the original device stack and driver package state, including the Device Manager Driver Key and relevant `pnputil /enum-drivers` output.
 2. Prepare offline or keyboard-accessible uninstall and recovery instructions.
 3. Verify package removal on a non-critical test device or isolated test machine.
 4. Verify pointer and button behavior after removal and reboot.
 5. Record the exact package, OS build, Secure Boot state, and HVCI state.
 
 Any base-input regression, incomplete package removal, or reboot-dependent unknown state blocks further distribution.
+
+## Optional comparison-package recovery
+
+If optional Apple Boot Camp mouse-driver research is performed, treat its installation and removal as a separate rollback exercise. Use an official 6.1.x source, retain the package locally rather than in this repository, identify the bound Apple INF before removal, and restore the original stack before project driver-binding work. The project must not require, bundle, redistribute, or modify the Apple package.
