@@ -200,8 +200,8 @@ installer\
   Bootstrapper\
 ```
 
-## Key architecture decision
+## Provisional architecture decision
 
-The preferred design is a narrowly scoped HID filter plus user-mode service plus VHF output, rather than a `SendInput`-only implementation. This preserves a standards-based input path for normal and elevated applications, isolates gesture complexity in user mode, and allows base HID reports to continue independently.
+The preferred design is conditional. First inspect the descriptor topology: if touch data is available through a separate, safely readable vendor-defined top-level collection, evaluate a service-only design before introducing a driver. If touch data is accessible only through the Windows-owned mouse collection, evaluate a narrowly scoped filter plus user-mode service plus VHF output rather than a `SendInput`-only implementation. The latter preserves a standards-based input path for normal and elevated applications, isolates gesture complexity in user mode, and allows base HID reports to continue independently.
 
-This decision is recorded in [ADR-0001](decisions/0001-filter-service-vhf.md). Production driver behavior remains gated on its rollback, pass-through, protocol, and VHF feasibility evidence.
+This decision is recorded in [ADR-0001](decisions/0001-filter-service-vhf.md). Production driver behavior remains gated on descriptor topology, rollback, pass-through, protocol, and VHF feasibility evidence.

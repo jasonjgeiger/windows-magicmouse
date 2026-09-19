@@ -53,5 +53,7 @@ A useful initial result identifies:
 - Which collection is readable.
 - VID, PID, usage page, usage, and input report length.
 - Repeating raw reports while using the mouse.
+- The top-level collection layout and whether touch traffic is isolated in a separately readable vendor-defined collection.
+- The observed input transport; do not assume the Lightning port carries HID data.
 
 Read-only capture may expose only standard mouse reports. Some Magic Mouse variants may require an initialization or feature-report sequence before touch frames appear; no such sequence will be sent until it is independently understood and bounded. The first device profile and touch decoder remain blocked until usable evidence is available and repeatable.

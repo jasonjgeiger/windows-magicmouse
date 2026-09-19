@@ -12,7 +12,7 @@ Before any test-signed driver binds to hardware:
 - Recovery instructions remain available without relying on the affected mouse.
 - Test certificates and private keys remain outside the repository.
 
-Enabling Windows test-signing mode changes an operating-system security setting and must be an explicit developer action. Repository scripts must not silently enable it.
+Enabling Windows test-signing mode changes an operating-system security setting and must be an explicit developer action. Test-signed kernel drivers generally require Secure Boot to be disabled, which is a material cost for a daily-driver machine; use an isolated development machine where possible. Repository scripts must not silently enable either setting.
 
 ## Production signing
 

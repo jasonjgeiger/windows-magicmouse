@@ -27,10 +27,12 @@
 | R-016 | Scope expands into advanced gestures before scrolling is stable | High | Medium | Explicit v1 exclusions and gated roadmap | Defer request to post-v1 backlog unless it fixes a release blocker | Product |
 | R-017 | Test fixtures are insufficient or non-reproducible | Medium | High | Canonical schema, scenario metadata, two-machine replay, provenance | Repeat captures; do not promote profile status | Protocol/Test |
 | R-018 | Installer failure leaves the mouse or driver stack degraded | Medium | Critical | Transactional install design, restore points where appropriate, recovery media/instructions, repeated rollback tests | Halt distribution and provide targeted recovery procedure | Installer |
+| R-019 | Touch data is accessible from a separate vendor-defined collection, making the proposed filter unnecessary | Medium | High | Capture descriptor topology before driver work and evaluate service-only access first | Re-scope to the simpler architecture and reopen ADR-0001 | Architecture |
+| R-020 | Test signing requires disabling Secure Boot on a daily-driver machine | High | High | Use an isolated development machine and keep kernel tests optional until topology evidence requires them | Defer kernel work or select a supported user-mode architecture | Release |
 
 ## Top feasibility risks
 
-The first feasibility work after the M1 foundation should retire R-001, R-002, R-013, and R-017. These determine whether the selected architecture and initial hardware target are feasible before significant driver, service, or UI investment.
+The first feasibility work after the M1 foundation should retire R-001, R-002, R-013, R-017, R-019, and R-020. These determine whether the selected architecture and initial hardware target are feasible before significant driver, service, or UI investment.
 
 ## Review cadence
 

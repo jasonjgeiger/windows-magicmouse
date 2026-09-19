@@ -14,7 +14,7 @@ This repository is in the foundation and protocol-research phase.
 ## Initial scope
 
 - Windows 11 x64.
-- Magic Mouse 2 with Lightning as the first research target.
+- Magic Mouse 2 over Bluetooth HID as the first research target; its Lightning port is assumed to be charging/pairing only until hardware evidence confirms otherwise.
 - Direct one-finger vertical and horizontal scrolling.
 - Independent enablement, speed, and direction settings for each axis.
 - Deterministic behavior without inertia or advanced gestures.
@@ -41,7 +41,7 @@ This repository is in the foundation and protocol-research phase.
 
 ## Build
 
-The current solution contains non-functional user-mode project skeletons. It does not contain a driver or access hardware.
+The current solution contains non-functional user-mode project skeletons and a synthetic `VhfWheelTest` smoke-test package. It does not contain a Magic Mouse filter driver or support a hardware model.
 
 ```powershell
 dotnet restore

@@ -19,7 +19,7 @@ This is the first bounded set of work to act on. Work outside this set remains p
 | 4 | P1-02 | Buildable user-mode solution boundaries without hardware binding | Complete |
 | 5 | P2-01 | Versioned capture/profile contracts with bounds, provenance, and invalid-schema tests | Complete |
 
-This execution set reached its P2-01 review point. The next bounded set may include only the minimum HidInspector, ReportRecorder, and synthetic VHF work needed to retire feasibility risks. Driver binding, gesture implementation, settings UI, and installer work remain outside the active set.
+The next bounded set is a single descriptor-topology inspection and bounded capture on the initial hardware. Driver binding, gesture implementation, settings UI, and installer work remain outside the active set until that evidence determines whether a kernel component is needed.
 
 ## Phase 1 - Repository and documentation baseline
 
@@ -88,6 +88,24 @@ This execution set reached its P2-01 review point. The next bounded set may incl
 
 ## Phase 2 - Protocol and output feasibility
 
+### P2-00 Confirm transport and descriptor topology
+
+**Depends on:** P2-02
+
+**Deliverables:**
+
+- Run `tools\Test-MagicMouse.ps1` or HidInspector against the initial hardware.
+- Preserve a bounded descriptor dump with transport and top-level collection evidence.
+- Determine whether touch data is in a separately readable vendor-defined collection or only in the mouse collection.
+- Record whether Bluetooth HID, rather than the Lightning port, carries observed input.
+
+**Done when:**
+
+- The architecture decision records the observed topology.
+- A service-only feasibility path is selected when safe non-exclusive access is proven; otherwise, filter evaluation remains conditional.
+
+**Status:** Pending physical Magic Mouse hardware.
+
 ### P2-01 Define capture and profile schemas
 
 **Depends on:** P1-02, P1-03
@@ -122,7 +140,7 @@ This execution set reached its P2-01 review point. The next bounded set may incl
 
 ### P2-03 Build ReportRecorder
 
-**Depends on:** P2-01, P2-02
+**Depends on:** P2-00, P2-01, P2-02
 
 **Deliverables:**
 
@@ -156,7 +174,7 @@ This execution set reached its P2-01 review point. The next bounded set may incl
 
 ### P2-05 Capture initial hardware matrix
 
-**Depends on:** P2-02, P2-03
+**Depends on:** P2-00, P2-02, P2-03
 
 **Deliverables:**
 
@@ -186,7 +204,7 @@ This execution set reached its P2-01 review point. The next bounded set may incl
 
 ### P2-07 Prove synthetic VHF output
 
-**Depends on:** P1-02, P1-04
+**Depends on:** P2-00, P1-02, P1-04
 
 **Deliverables:**
 
@@ -264,7 +282,7 @@ This execution set reached its P2-01 review point. The next bounded set may incl
 
 ### P4-01 Create non-binding KMDF skeleton
 
-**Depends on:** P1-02, P1-04
+**Depends on:** P2-00, P1-02, P1-04
 
 **Deliverables:**
 

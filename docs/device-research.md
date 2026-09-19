@@ -2,7 +2,7 @@
 
 ## Goal
 
-Establish a clean-room, repeatable, evidence-based device profile for the initial Magic Mouse model before implementing production filter behavior.
+Establish a clean-room, repeatable, evidence-based device profile for the initial Magic Mouse model before selecting a production architecture or implementing filter behavior.
 
 ## Evidence standard
 
@@ -22,6 +22,8 @@ Record for each session:
 - Device model and visible identifiers.
 - Hardware and compatible IDs.
 - Transport and descriptor hashes.
+- Transport verification, including whether the Lightning port carries HID data or Bluetooth is the sole input transport.
+- Top-level collection topology, usage pages/usages, and whether each candidate collection is readable without exclusive access.
 - Firmware observations available through documented interfaces.
 - Windows edition, build, architecture, and Bluetooth adapter.
 - Tool version and fixture schema version.
@@ -58,6 +60,14 @@ Do not record user identity, unrelated keyboard input, unrelated device traffic,
 8. Add annotations separately from observed bytes.
 9. Replay the fixture through the parser.
 10. Compare results across repeated sessions and machines.
+
+## Architecture-selection checkpoint
+
+Run `tools\Test-MagicMouse.ps1` or HidInspector before planning additional driver work. Preserve one descriptor dump and record the report topology.
+
+- If touch data appears in a separate, readable vendor-defined top-level collection, first prove a service-only capture and output path.
+- If touch data is only present in the Windows-owned mouse collection, document that result before evaluating a filter.
+- If no readable touch collection exists, do not infer a protocol or send initialization traffic; remain blocked pending a bounded, independently understood sequence.
 
 ## Device profile contents
 

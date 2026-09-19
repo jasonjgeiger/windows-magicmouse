@@ -16,7 +16,7 @@
 | Milestone | Scope | Entry condition | Exit condition | Initial status |
 |---|---|---|---|---|
 | M1 Foundation | Repository, solution boundaries, documentation, ADR | Planning approved | Clean skeleton build and documentation gate | In progress |
-| M2 Protocol feasibility | Inspection, recording, visualization, first device profile | M1 project skeleton | Protocol gate passes on two machines | Planned |
+| M2 Protocol feasibility | Descriptor topology, inspection, recording, visualization, first device profile | M1 project skeleton | Topology and protocol gates pass on two machines | Planned |
 | M3 Gesture engine | Deterministic state machine and replay tests | Valid first profile fixtures | Gesture gate passes | Planned |
 | M4 Driver feasibility | Pass-through filter, secured transport, synthetic VHF | Protocol and architecture gates | Driver safety gate passes | Planned |
 | M5 Integrated scrolling | Service, real frames, VHF output, settings persistence | M3 and M4 | Integration gate passes | Planned |
@@ -41,6 +41,7 @@ M1 does not include claims of device compatibility.
 Outcomes:
 
 - Safe device enumeration.
+- Descriptor and transport topology evidence that selects service-only feasibility work or conditional filter evaluation.
 - Bounded clean-room capture.
 - Repeatable fixture format.
 - Contact visualization.
@@ -48,7 +49,7 @@ Outcomes:
 - Lifecycle evidence for reconnect and resume.
 - Synthetic VHF evidence for vertical and horizontal output in normal and elevated applications.
 
-If M2 cannot reliably identify contacts, direction, magnitude, and lifecycle boundaries, production filter development remains blocked and architecture options are reconsidered.
+If M2 cannot reliably identify contacts, direction, magnitude, and lifecycle boundaries, production filter development remains blocked and architecture options are reconsidered. If M2 proves a separately readable vendor-defined touch collection, service-only feasibility work takes precedence over any driver work.
 
 ## M3 - Gesture engine
 
@@ -122,10 +123,10 @@ These items require separate requirements, risk review, and validation before sc
 
 ## Immediate execution order
 
-1. Complete the active execution set in `tasks.md`: repository conventions, baseline documentation, the architecture ADR, and buildable user-mode skeletons.
-2. Define the versioned capture, profile, and fixture contracts.
-3. Build only the M2 research tools needed to gather bounded evidence, and run the non-binding synthetic VHF feasibility spike.
-4. Capture and validate the first hardware profile on the required matrix.
+1. Run one descriptor-topology inspection with `tools\Test-MagicMouse.ps1` or HidInspector and record the observed transport and collection layout.
+2. Select a service-only feasibility path if a separate readable vendor-defined touch collection exists; otherwise retain filter evaluation as conditional.
+3. Capture and validate the first hardware profile on the required matrix.
+4. Run the non-binding synthetic VHF feasibility spike only if the selected path needs it.
 5. Reassess architecture risks before production filter binding, gesture implementation, or integrated scrolling.
 
 Production driver binding must not begin before the protocol feasibility gate passes.

@@ -1,6 +1,6 @@
 # ADR-0001: Filter, service, and VHF architecture
 
-- **Status:** Accepted for feasibility work
+- **Status:** Proposed, pending descriptor-topology evidence
 - **Date:** 2026-09-18
 
 ## Context
@@ -11,7 +11,7 @@ The design must minimize kernel policy, support elevated applications, isolate p
 
 ## Decision
 
-Use a narrowly scoped KMDF HID filter for confirmed hardware, a Windows service for device profiles and deterministic gesture processing, and a Virtual HID Framework device for relative Wheel and AC Pan reports.
+If descriptor evidence shows touch reports are unavailable outside the Windows-owned mouse collection, use a narrowly scoped KMDF HID filter for confirmed hardware, a Windows service for device profiles and deterministic gesture processing, and a Virtual HID Framework device for relative Wheel and AC Pan reports. This is not a commitment to ship a kernel component.
 
 The filter will:
 
@@ -32,7 +32,15 @@ Rejected as the primary architecture because injected input has trust, integrity
 
 ### Service-only direct device access
 
-Not selected because exclusive or competing access to the relevant HID collections may be unreliable, may require unsupported assumptions, and does not by itself provide the desired standards-based output path. This option must be reconsidered if clean, non-exclusive access is proven without weakening base-input preservation.
+Preferred if a descriptor dump proves touch data is in a separate vendor-defined top-level collection that can be opened safely and non-exclusively. In that case, a service-only design must be evaluated before any filter work. If no such collection exists, competing access to the mouse collection may be unreliable or unsupported.
+
+### In-stream filter translation
+
+Evaluate after topology evidence if a filter is required. Translating validated touch data directly to wheel reports in the filter could remove VHF and the service, but moves gesture policy into kernel mode and conflicts with the policy-isolation principle.
+
+### UMDF HID filter
+
+Evaluate as an alternative to KMDF if the supported HID stack permits it. A `mshidumdf`-based design could reduce kernel crash impact, but must independently prove base-input preservation, lifecycle behavior, and the required output path.
 
 ### Gesture processing in kernel mode
 
@@ -66,4 +74,5 @@ Reopen this decision if evidence shows any of the following:
 - A safe filter cannot preserve base input through service loss, removal, suspend, resume, or saturation.
 - Installation or rollback cannot reliably restore the standard Windows device path.
 - Required touch reports can be accessed safely and non-exclusively from user mode with a simpler supported architecture.
+- The descriptor topology does not prove a kernel component is necessary.
 - The initial hardware cannot be identified and decoded with a strict, evidence-based profile.

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This directory is the planning source of truth for MagicMouseWindows, a Windows 11 app and driver that provide native-feeling touch scrolling for supported Apple Magic Mouse hardware.
+This directory is the planning source of truth for MagicMouseWindows, a Windows 11 touch-scrolling research project for supported Apple Magic Mouse hardware. The final architecture is intentionally undecided until the first descriptor dump and bounded captures are reviewed.
 
 The project is greenfield. No hardware support is considered confirmed until descriptors, reports, lifecycle behavior, and gesture output have been captured and reproduced in tests.
 
@@ -35,8 +35,9 @@ The project is greenfield. No hardware support is considered confirmed until des
 - The non-binding VHF feasibility package builds a signable root-enumerated virtual wheel device; controlled test-signed installation remains manual.
 - No physical-device filter, touch decoder, functional service, WinUI settings app, or installer has been created.
 - No Magic Mouse model is currently declared supported.
-- The first approved engineering scope is repository scaffolding, the architecture ADR, and protocol-research contracts.
-- Production driver development is gated on repeatable hardware evidence.
+- The first approved engineering scope is descriptor inspection and bounded protocol capture; planning beyond that is provisional.
+- No Magic Mouse descriptor dump or touch capture has yet been collected.
+- Production driver development is gated on repeatable hardware evidence and a confirmed need for kernel access.
 
 ## Documentation assessment
 
@@ -60,13 +61,15 @@ Version 1 is intended to provide:
 
 ## Delivery gates
 
-1. **Documentation gate:** requirements, architecture, security boundaries, validation, and rollback are documented.
+1. **Topology gate:** a descriptor dump establishes whether touch data is in a separately readable vendor-defined top-level collection or is held in the mouse collection.
 2. **Protocol gate:** report decoding is supported by deterministic captures from the initial hardware target.
 3. **Gesture gate:** fixture replay proves stable axis selection, scaling, reversal, and reset behavior.
 4. **Driver gate:** normal pointer and button traffic remains unaffected during component failures.
 5. **Integration gate:** scrolling and settings recover through device and operating-system lifecycle transitions.
 6. **Distribution gate:** install, upgrade, repair, rollback, uninstall, signing, and compatibility requirements pass.
 
+The topology gate selects the implementation direction: a safely readable separate vendor-defined collection permits a service-only feasibility path; otherwise, a narrowly scoped filter remains a hypothesis to validate. No driver-binding work may begin before this decision.
+
 ## Governing constraint
 
-Implementation must be clean-room. It must not copy, redistribute, decompile, or depend on proprietary Magic Utilities or Apple binaries. Interoperability research must be based on original, bounded hardware observations and documented provenance. Public specifications, Microsoft documentation and samples, and license-compatible source material are acceptable inputs.
+Implementation must be clean-room. It must not copy, redistribute, decompile, or depend on proprietary Magic Utilities or Apple binaries. Apple's Boot Camp `applewirelessmouse` driver and Magic Utilities are prior-art products that may be evaluated as end-user alternatives or compared only through public behavior; they are not implementation inputs. Interoperability research must be based on original, bounded hardware observations and documented provenance. Public specifications, Microsoft documentation and samples, and license-compatible source material are acceptable inputs.

@@ -15,10 +15,10 @@ The product should behave as an enhancement, not as a replacement mouse stack. I
 ## Initial target
 
 - Operating system: Windows 11 x64.
-- Hardware: Magic Mouse 2 with Lightning.
+- Hardware: Magic Mouse 2 over Bluetooth HID, pending descriptor and transport evidence. The Lightning port must not be assumed to carry HID data.
 - Input features: direct one-finger vertical and horizontal scrolling.
 - Configuration: independent axis enablement, speed, and direction.
-- Distribution stage: developer test-signed builds before any production release.
+- Distribution stage: developer test-signed builds only on an explicitly prepared test machine before any production release.
 
 USB-C and original battery-powered models remain research targets until their descriptors and touch reports are shown to be compatible or receive separate device profiles.
 
@@ -35,6 +35,8 @@ Kernel code performs narrow validation, bounded transport, lifecycle handling, a
 ### Require evidence before support claims
 
 Hardware IDs alone are insufficient. A supported device profile requires a matching descriptor signature, documented report shape, lifecycle captures, fixture tests, and hardware acceptance results.
+
+The first evidence also decides whether a kernel component is justified: a safely readable separate touch collection favors a service-only design; touch data held only by the mouse stack may justify evaluating a filter.
 
 ### Build deterministic behavior first
 
